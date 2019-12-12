@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <title>Vue.js proyect</title>
+</head>
+
+<body>
+    <div id="app">
+        <nav>
+            <div class="nav-wrapper">
+                <a href="#!" class="brand-logo"><i class="material-icons">cloud</i>Logo</a>
+                <ul class="right hide-on-med-and-down">
+                    <li><a href="sass.html"><i class="material-icons">search</i></a></li>
+                    <li><a @click="cambiarvista" href="#!"><i class="material-icons">view_module</i></a></li>
+                    <li><a href="/vueproyect/index.html"><i class="material-icons">refresh</i></a></li>
+                    <li><a href="mobile.html"><i class="material-icons">more_vert</i></a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="row" v-if="arrayheroes!=[]">
+
+
+
+            <div class="card-panel">
+                <div class="row">
+
+                    <div v-for="item in arrayheroes">
+                        <div :id="item.id" class="col l3 m4 s6 ">
+                            <div class="card-panel" style="height: 600px;">
+                                <center><img @click="ver_modal(item)" :src="item.image.url" class="responsive-img">
+                                </center>
+
+                                <h4 class="center"><b>{{item.name}}</b></h4>
+                                <h5 class="center"><i>{{item.biography['full-name']}}</i></h5>
+                                <center><i>{{item.biography.publisher}}</i></center>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-panel" v-if="!estado2 && arrayheroes != [] || waves">
+                        <div class="progress">
+                            <div class="indeterminate">
+                            </div>
+                        </div>
+                    </div>
+                    <center><button v-if="estado2" @click="cargar4" class=" waves-effect waves-green btn-flat">Cargar
+                            Todos</button></center>
+                    <center><button v-if="estado3" @click="cargar5" class=" waves-effect waves-green btn-flat">Cargar
+                            Todos</button></center>
+                    <center><button v-if="estado4" @click="cargar6" class=" waves-effect waves-green btn-flat">Cargar
+                            Todos</button></center>
+                    <center><button v-if="estado5" @click="cargar7" class=" waves-effect waves-green btn-flat">Cargar
+                            Todos</button></center>
+                    <center><button v-if="estado6" @click="cargar8" class=" waves-effect waves-green btn-flat">Cargar
+                            Todos</button></center>
+                    <center><button v-if="estado7" @click="cargar9" class=" waves-effect waves-green btn-flat">Cargar
+                            Todos</button></center>
+
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+
+        <div id="popup" class="modal">
+            <div v-if="hero != null">
+                <div class="modal-content">
+                    <!--      <center> <img :src="" class="circle "> </center>-->
+                    <h4></h4>
+                    <p>A bunch of text</p>
+                </div>
+                <div class="modal-footer">
+                    <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+
+
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                estado: true,
+                estado2: false,
+                estado3: false,
+                estado4: false,
+                estado5: false,
+                estado6: false,
+                estado7: false,
+                estado8: false,
+                hero: null,
+                waves: false,
+                api: 'https://www.superheroapi.com/api.php/1052603298409190/',
+                api2: 'https://www.superheroapi.com/api.php/2714767085213351/',
+                api3: 'https://www.superheroapi.com/api.php/2159503067691511/',
+                arrayheroes: [],
+                //url: 'https://randomuser.me/api/?results=5'
+            },
+            methods: {
+                async cargar() {
+                    for (var i = 1; i <= 8; i++) {
+                        var resultado = await axios.get(this.api + i);
+                        this.arrayheroes.push(resultado.data);
+                        console.log(resultado.data.result);
+                    };
+                    console.log(this.arrayheroes);
+
+                    this.cargar2();
+                },
+                async cargar2() {
+                    for (var i = 9; i <= 16; i++) {
+                        var resultado = await axios.get(this.api2 + i);
+                        this.arrayheroes.push(resultado.data);
+                        console.log(resultado.data.result);
+                    };
+                    console.log(this.arrayheroes);
+                    this.cargar3();
+                },
+                async cargar3() {
+                    for (var i = 17; i <= 108; i++) {
+                        var resultado = await axios.get(this.api3 + i);
+                        this.arrayheroes.push(resultado.data);
+                    };
+                    console.log(this.arrayheroes);
+                    this.estado2 = true;
+                },
+                async cargar4() {
+                    this.estado2 = false;
+                    this.waves = true;
+                    for (var i = 109; i <= 240; i++) {
+                        var resultado = await axios.get(this.api2 + i);
+                        this.arrayheroes.push(resultado.data);
+                    };
+                    console.log(this.arrayheroes);
+                    this.estado3 = true;
+                },
+                async cargar5() {
+                    this.estado3 = false;
+                    for (var i = 241; i <= 336; i++) {
+                        var resultado = await axios.get(this.api3 + i);
+                        this.arrayheroes.push(resultado.data);
+                    };
+                    console.log(this.arrayheroes);
+                    this.estado4 = true;
+                },
+                async cargar6() {
+                    this.estado4 = false;
+                    for (var i = 337; i <= 444; i++) {
+                        var resultado = await axios.get(this.api + i);
+                        this.arrayheroes.push(resultado.data);
+                        console.log(resultado.data.result);
+                        console.log(this.api + i);
+                    };
+                    console.log(this.arrayheroes);
+                    this.estado5 = true;
+                },
+                async cargar7() {
+                    this.estado5 = false;
+                    for (var i = 445; i <= 552; i++) {
+                        var resultado = await axios.get(this.api2 + i);
+                        this.arrayheroes.push(resultado.data);
+                        console.log(resultado.data.result);
+                        console.log(this.api2 + i);
+                    };
+                    console.log(this.arrayheroes);
+                    this.estado6 = true;
+                },
+                async cargar8() {
+                    this.estado6 = false;
+                    for (var i = 553; i <= 660; i++) {
+                        var resultado = await axios.get(this.api3 + i);
+                        this.arrayheroes.push(resultado.data);
+                        console.log(resultado.data.result);
+                        console.log(this.api3 + i);
+                    };
+                    console.log(this.arrayheroes);
+                    this.estado7 = true;
+                },
+                async cargar9() {
+                    this.estado7 = false;
+                    for (var i = 661; i <= 730; i++) {
+                        var resultado = await axios.get(this.api + i);
+                        this.arrayheroes.push(resultado.data);
+                        console.log(resultado.data.result);
+                        console.log(this.api + i);
+                    };
+                    console.log(this.arrayheroes);
+                    this.waves = false;
+
+                },
+                ver_modal(item) {
+                    this.hero = item;
+                    var instance = M.Modal.getInstance(document.getElementById('popup'));
+                    instance.open();
+                },
+                cambiarvista(){
+                   
+                }
+
+            },
+            created() {
+                this.cargar();
+            },
+            mounted() {
+                document.addEventListener('DOMContentLoaded', function () {
+                    var modalelems = document.querySelectorAll('.modal');
+                    var instances = M.Modal.init(modalelems);
+                });
+
+            }
+        });
+
+    </script>
+
+</body>
+
+</html>
