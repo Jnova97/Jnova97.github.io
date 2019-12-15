@@ -45,9 +45,9 @@
 
                     <div v-for="item in arrayheroes">
                         <div :id="item.id" @click="ver_modal(item)" v-bind:class="tamaño ">
-                            <div class="card-panel transparent" style="height: 600px;"
+                            <div class="card-panel transparent" 
                                 style="background-image:url(img/diagmonds-light.png);">
-                                <center><img @click="ver_modal(item)" :src="item.image.url" class="responsive-img" style="max-width: 300px;">
+                                <center><img @click="ver_modal(item)" :src="item.image.url" class="responsive-img" >
                                 </center>
 
                                 <h6 class="center"><b>Nombre:</b> {{item.name}}({{item.id}})</h6>
