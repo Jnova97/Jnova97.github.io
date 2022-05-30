@@ -42,9 +42,9 @@
 
 
         <div id="top" class="card-panel green lighten-2" style="background-image:url(img/diagmonds-light.png);">
-            <div class="row">
+            <div class="row"style="display:flex">
 
-                <div v-for="item in arrayheroes">
+                <div v-for="item in arrayheroes" >
                     <div :id="item.id" @click="ver_modal(item)" v-bind:class="tamaño ">
                         <div class="card-panel transparent" style="background-image:url(img/diagmonds-light.png);">
                             <center><img @click="ver_modal(item)" :src="item.image.url" class="responsive-img">
