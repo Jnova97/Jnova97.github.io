@@ -38,11 +38,11 @@
     </nav>
     <br>
     <br>
-    <div class="row" v-if="arrayheroes!=[]">
+    <div class="row" v-if="arrayheroes!=[]" style="display:flex">
 
 
         <div id="top" class="card-panel green lighten-2" style="background-image:url(img/diagmonds-light.png);">
-            <div class="row"style="display:flex">
+            <div class="row">
 
                 <div v-for="item in arrayheroes" >
                     <div :id="item.id" @click="ver_modal(item)" v-bind:class="tamaño ">
